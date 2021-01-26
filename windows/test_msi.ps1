@@ -3,7 +3,8 @@ param (
     [string]$INTEGRATION="integration",
     [string]$ARCH="amd64",
     [string]$TAG="v0.0.0",
-    [string]$UPGRADE="false" # upgrade: upgrade msi from last released version.
+    [string]$UPGRADE="false", # upgrade: upgrade msi from last released version.
+    [string]$MSI_PATH=""
 )
 
 if($UPGRADE -eq "true")
@@ -25,7 +26,11 @@ if($UPGRADE -eq "true")
 }
 
 $version = $TAG.substring(1)
-$msi_name = ".\build\package\windows\nri-${ARCH}-installer\bin\Release\nri-${INTEGRATION}-${ARCH}.${version}.msi"
+if($MSI_PATH -eq "")
+{
+    $MSI_PATH="build\package\windows\nri-${ARCH}-installer\bin\Release"    
+}
+$msi_name = "$MSI_PATH\nri-${INTEGRATION}-${ARCH}.${version}.msi"
 write-host "===> Installing generated msi: ${msi_name}"
 $p = Start-Process msiexec.exe -Wait -PassThru -ArgumentList "/qn /L*v msi_log /i ${msi_name}"
 if($p.ExitCode -ne 0)

@@ -32,16 +32,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Simulating Build
-        shell: bash
+        shell: pwsh
         run: |
-          mkdir -p ./build/package/windows/nri-${{ matrix.goarch }}-installer/bin/Release
-          curl -k https://github.com/newrelic/nri-vsphere/releases/download/v3.0.1/nri-vsphere-${{ matrix.goarch }}.3.0.1.msi --output ./build/package/windows/nri-${{ matrix.goarch }}-installer/bin/Release/nri-vsphere-${{ matrix.goarch }}.3.0.1.msi
-          pwd
-          ls ./build/package/windows/nri-${{ matrix.goarch }}-installer/bin/Release
-
+          New-Item -Name "test" -ItemType "directory"
+          [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+          Invoke-WebRequest "https://github.com/newrelic/nri-vsphere/releases/download/v3.0.1/nri-vsphere-${{ matrix.goarch }}.3.0.1.msi" -OutFile "test\nri-vsphere-${{ matrix.goarch }}.3.0.1.msi"
+          ls .\test\
+        # shell: bash
+        # run: |
+        #   mkdir -p ./build/package/windows/nri-${{ matrix.goarch }}-installer/bin/Release
+        #   curl -k https://github.com/newrelic/nri-vsphere/releases/download/v3.0.1/nri-vsphere-${{ matrix.goarch }}.3.0.1.msi --output ./build/package/windows/nri-${{ matrix.goarch }}-installer/bin/Release/nri-vsphere-${{ matrix.goarch }}.3.0.1.msi
+        #   pwd
+        #   ls ./build/package/windows/nri-${{ matrix.goarch }}-installer/bin/Release
       - uses: ./windows
         with:
           tag: 'v3.0.1'
           integration: 'vsphere'
           arch: ${{ matrix.goarch }}
           upgrade: ${{ matrix.test-upgrade }}
+          pkgDir: test

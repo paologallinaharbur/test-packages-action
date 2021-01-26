@@ -31,4 +31,11 @@ The following inputs can be specified to override the default behavior
 
 ## `/windows`
 
-WIP
+The following inputs can be specified to override the default behavior 
+
+* `upgrade`: Whether to test upgrade path against the version of the same integration in the newrelic repo
+  - default: `true`
+* `arch`: Architecture to test [amd64, 386]
+  - default: `amd64`
+* `pkgDir`: Path where archives (.msi) reside
+  - default: `build\package\windows\nri-${ARCH}-installer\bin\Release`

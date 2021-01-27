@@ -25,7 +25,7 @@ if($UPGRADE -eq "true")
     }
 }
 
-$version = $TAG.substring(1)
+$version = $TAG -replace "v", ""
 if($MSI_PATH -eq "")
 {
     $MSI_PATH="build\package\windows\nri-${ARCH}-installer\bin\Release"    

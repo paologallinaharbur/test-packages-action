@@ -41,7 +41,7 @@ jobs:
       - uses: ./windows
         with:
           tag: 'v3.0.1'
-          integration: 'vsphere'
+          integration: 'nri-vsphere'
           arch: ${{ matrix.goarch }}
           upgrade: ${{ matrix.test-upgrade }}
           pkgDir: test

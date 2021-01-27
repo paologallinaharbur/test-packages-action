@@ -28,7 +28,7 @@ if($UPGRADE -eq "true")
 $version = $TAG -replace "v", ""
 if($MSI_PATH -eq "")
 {
-    $MSI_PATH="src\github\${INTEGRATION}\build\package\windows\nri-${ARCH}-installer\bin\Release"    
+    $MSI_PATH="src\github.com\newrelic\${INTEGRATION}\build\package\windows\nri-${ARCH}-installer\bin\Release"    
 }
 $msi_name = "$MSI_PATH\${INTEGRATION}-${ARCH}.${version}.msi"
 write-host "===> Installing generated msi: ${msi_name}"

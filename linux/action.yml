@@ -1,4 +1,5 @@
-name: 'Test packages installation'
+name: Test packages installation
+  uses: paologallinaharbur/test-packages-action@v1.1.0
 description: 'This action test packages installation in Suse, CentOS and Ubuntu'
 inputs:
   tag:
